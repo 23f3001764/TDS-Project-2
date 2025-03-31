@@ -5,7 +5,7 @@ import json
 import numpy as np
 from bs4 import BeautifulSoup
 from datetime import datetime, timedelta
-import zipfxile
+import zipfile
 import pandas as pd
 import os
 import gzip

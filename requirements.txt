@@ -8,17 +8,19 @@ python-multipart
 # Data processing
 numpy
 scikit-learn
-scipy 
+scipy
 pandas
-python-dateutil  # Fixed: removed incorrect .post0 suffix
+python-dateutil
 six
 tzdata
+joblib
+threadpoolctl
 
 # Image handling
 Pillow
 
-# Time zones and date handling
-pytz 
+# Time zones and geolocation
+pytz
 geopy
 
 # RSS feed parsing
@@ -37,7 +39,10 @@ python-dotenv
 lxml
 
 # Text processing
-fuzzywuzzy
+thefuzz
 python-Levenshtein
-python-jose[cryptography]
+python-jose
+cryptography
+
+# Production WSGI server
 gunicorn

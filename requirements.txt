@@ -40,4 +40,4 @@ lxml
 fuzzywuzzy
 python-Levenshtein
 python-jose[cryptography]
-guvicorn
+gunicorn

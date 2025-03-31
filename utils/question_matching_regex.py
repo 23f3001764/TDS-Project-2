@@ -62,7 +62,7 @@ questions = [
     """Install and run Visual Studio Code. In your Terminal (or Command Prompt), type code -s and press Enter. Copy and paste the entire output below.
     What is the output of code -s?""",
     """Running uv run --with httpie -- https [URL] installs the Python package httpie and sends a HTTPS request to the URL.
-    Send a HTTPS request to https://httpbin.org/get with the URL encoded parameter email set to 23f3001764@ds.study.iitm.ac.in
+    Send a HTTPS request to https://httpbin.org/get with the URL encoded parameter email set to 23f2005217@ds.study.iitm.ac.in
     What is the JSON output of the command? (Paste only the JSON body, not the headers)""",
     """Let's make sure you know how to use npx and prettier.
     Download . In the directory where you downloaded it, make sure it is called README.md, and run npx -y prettier@3.4.2 README.md | sha256sum.
@@ -94,7 +94,7 @@ questions = [
     data3.txt: Tab-separated file encoded in UTF-16
     Each file has 2 columns: symbol and value. Sum up all the values where the symbol matches ‚ OR ˆ OR ‡ across all three files.
     What is the sum of all values associated with these symbols?""",
-    """Let's make sure you know how to use GitHub. Create a GitHub account if you don't have one. Create a new public repository. Commit a single JSON file called email.json with the value {"email": "23f3001764@ds.study.iitm.ac.in"} and push it.
+    """Let's make sure you know how to use GitHub. Create a GitHub account if you don't have one. Create a new public repository. Commit a single JSON file called email.json with the value {"email": "23f2005217@ds.study.iitm.ac.in"} and push it.
     Enter the raw Github URL of email.json so we can verify it. (It might look like https://raw.githubusercontent.com/[GITHUB ID]/[REPO NAME]/main/email.json.)""",
     """Download  and unzip it into a new folder, then replace all "IITM" (in upper, lower, or mixed case) with "IIT Madras" in all files. Leave everything as-is - don't change the line endings.
     What does running cat * | sha256sum in that folder show in bash?""",
@@ -134,13 +134,13 @@ Enter your Markdown here:""",
 By losslessly, we mean that every pixel in the new image should be identical to the original image.
 Upload your losslessly compressed image (less than 1,500 bytes)
     """,
-    """ Publish a page using GitHub Pages that showcases your work. Ensure that your email address 23f3001764@ds.study.iitm.ac.in is in the page's HTML.
+    """ Publish a page using GitHub Pages that showcases your work. Ensure that your email address 23f2005217@ds.study.iitm.ac.in is in the page's HTML.
 GitHub pages are served via CloudFlare which obfuscates emails. So, wrap your email address inside a:
-<!--email_off-->23f3001764@ds.study.iitm.ac.in<!--/email_off-->
+<!--email_off-->23f2005217@ds.study.iitm.ac.in<!--/email_off-->
 What is the GitHub Pages URL? It might look like: https://[USER].github.io/[REPO]/
 If a recent change that's not reflected, add ?v=1, ?v=2 to the URL to bust the cache.
     """,
-    """ Let's make sure you can access Google Colab. Run this program on Google Colab, allowing all required access to your email ID: 23f3001764@ds.study.iitm.ac.in.
+    """ Let's make sure you can access Google Colab. Run this program on Google Colab, allowing all required access to your email ID: 23f2005217@ds.study.iitm.ac.in.
 import hashlib
 import requests
 from google.colab import auth
@@ -177,17 +177,17 @@ Create and deploy a Python app to Vercel. Expose an API so that when a request l
 { "marks": [10, 20] }
 Make sure you enable CORS to allow GET requests from any origin.
 What is the Vercel URL? It should look like: https://your-app.vercel.app/api """,
-    """ Create a GitHub action on one of your GitHub repositories. Make sure one of the steps in the action has a name that contains your email address 23f3001764@ds.study.iitm.ac.in. For example:
+    """ Create a GitHub action on one of your GitHub repositories. Make sure one of the steps in the action has a name that contains your email address 23f2005217@ds.study.iitm.ac.in. For example:
 jobs:
   test:
     steps:
-      - name: 23f3001764@ds.study.iitm.ac.in
+      - name: 23f2005217@ds.study.iitm.ac.in
         run: echo "Hello, world!"
 Trigger the action and make sure it is the most recent action.
 What is your repository URL? It will look like: https://github.com/USER/REPO
     """,
     """
-    Create and push an image to Docker Hub. Add a tag named 23f3001764 to the image.
+    Create and push an image to Docker Hub. Add a tag named 23f2005217 to the image.
 What is the Docker image URL? It should look like: https://hub.docker.com/repository/docker/$USER/$REPO/general """,
     """ Download . This file has 2-columns:
 studentId: A unique identifier for each student, e.g. 1, 2, 3, ...
@@ -272,8 +272,8 @@ Write your JSON body here:
     """
     SecurePay, a leading fintech startup, has implemented an innovative feature to detect and prevent fraudulent activities in real time. As part of its security suite, the system analyzes personalized transaction messages by converting them into embeddings. These embeddings are compared against known patterns of legitimate and fraudulent messages to flag unusual activity.
 Imagine you are working on the SecurePay team as a junior developer tasked with integrating the text embeddings feature into the fraud detection module. When a user initiates a transaction, the system sends a personalized verification message to the user's registered email address. This message includes the user's email address and a unique transaction code (a randomly generated number). Here are 2 verification messages:
-Dear user, please verify your transaction code 65889 sent to 23f3001764@ds.study.iitm.ac.in
-Dear user, please verify your transaction code 42512 sent to 23f3001764@ds.study.iitm.ac.in
+Dear user, please verify your transaction code 65889 sent to 23f2005217@ds.study.iitm.ac.in
+Dear user, please verify your transaction code 42512 sent to 23f2005217@ds.study.iitm.ac.in
 The goal is to capture this message, convert it into a meaningful embedding using OpenAI's text-embedding-3-small model, and subsequently use the embedding in a machine learning model to detect anomalies.
 Your task is to write the JSON body for a POST request that will be sent to the OpenAI API endpoint to obtain the text embedding for the 2 given personalized transaction verification messages above. This will be sent to the endpoint https://api.openai.com/v1/embeddings.
 Write your JSON body here:
@@ -595,7 +595,7 @@ We'll check by sending a request to this URL with ?country=... passing different
     Create a scheduled GitHub action that runs daily and adds a commit to your repository. The workflow should:
 
     Use schedule with cron syntax to run once per day (must use specific hours/minutes, not wildcards)
-    Include a step with your email 23f3001764@ds.study.iitm.ac.in in its name
+    Include a step with your email 23f2005217@ds.study.iitm.ac.in in its name
     Create a commit in each run
     Be located in .github/workflows/ directory
     After creating the workflow:
@@ -871,6 +871,18 @@ We'll check by sending a request to this URL with ?country=... passing different
     Download the data from
 
     What is the total sales value?""",
+    """Your task as a data analyst at EngageMetrics is to write a query that performs the following:
+
+    Filter Posts by Date: Consider only posts with a timestamp greater than or equal to a specified minimum time (2025-01-28T21:36:31.398Z), ensuring that the analysis focuses on recent posts.
+    Evaluate Comment Quality: From these recent posts, identify posts where at least one comment has received more than a given number of useful stars (5). This criterion filters out posts with low or mediocre engagement.
+    Extract and Sort Post IDs: Finally, extract all the post_id values of the posts that meet these criteria and sort them in ascending order.
+    By accurately extracting these high-impact post IDs, EngageMetrics can:
+
+    Enhance Reporting: Provide clients with focused insights on posts that are currently engaging audiences effectively.
+    Target Content Strategy: Help marketing teams identify trending content themes that generate high-quality user engagement.
+    Optimize Resource Allocation: Enable better prioritization for content promotion and further in-depth analysis of high-performing posts.
+    Write a DuckDB SQL query to find all posts IDs after 2025-01-28T21:36:31.398Z with at least 1 comment with 5 useful stars, sorted. The result should be a table with a single column called post_id, and the relevant post IDs should be sorted in ascending order.
+    Check the console for the result of your query.""",
     """Log Analysis for DataSure Technologies
     DataSure Technologies is a leading provider of IT infrastructure and software solutions, known for its robust systems and proactive maintenance practices. As part of their service offerings, DataSure collects extensive logs from thousands of servers and applications worldwide. These logs, stored in JSON format, are rich with information about system performance, error events, and user interactions. However, the logs are complex and deeply nested, which can make it challenging to quickly identify recurring issues or anomalous behavior.
 
@@ -896,18 +908,6 @@ We'll check by sending a request to this URL with ?country=... passing different
     Download the data from
 
     How many times does K appear as a key?""",
-    """Your task as a data analyst at EngageMetrics is to write a query that performs the following:
-
-    Filter Posts by Date: Consider only posts with a timestamp greater than or equal to a specified minimum time (2025-01-28T21:36:31.398Z), ensuring that the analysis focuses on recent posts.
-    Evaluate Comment Quality: From these recent posts, identify posts where at least one comment has received more than a given number of useful stars (5). This criterion filters out posts with low or mediocre engagement.
-    Extract and Sort Post IDs: Finally, extract all the post_id values of the posts that meet these criteria and sort them in ascending order.
-    By accurately extracting these high-impact post IDs, EngageMetrics can:
-
-    Enhance Reporting: Provide clients with focused insights on posts that are currently engaging audiences effectively.
-    Target Content Strategy: Help marketing teams identify trending content themes that generate high-quality user engagement.
-    Optimize Resource Allocation: Enable better prioritization for content promotion and further in-depth analysis of high-performing posts.
-    Write a DuckDB SQL query to find all posts IDs after 2025-01-28T21:36:31.398Z with at least 1 comment with 5 useful stars, sorted. The result should be a table with a single column called post_id, and the relevant post IDs should be sorted in ascending order.
-    Check the console for the result of your query.""",
     """Enhancing Accessibility and Content Analysis for Mystery Audiobooks
     Mystery Tales Publishing is an independent publisher specializing in mystery and suspense audiobooks. To broaden their audience and improve accessibility, they have been uploading narrated versions of their stories to YouTube. In addition to reaching visually impaired users, they want to leverage transcripts for content summarization, search indexing, and social media promotion.
 

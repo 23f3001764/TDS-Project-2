@@ -1,6 +1,6 @@
-import json
 import httpx
 import os
+import json
 
 from utils.function_definations_llm import function_definitions_objects_llm
 
@@ -17,51 +17,82 @@ headers = {
 def extract_parameters(prompt: str, function_definitions_llm):
     """Send a user query to OpenAI API and extract structured parameters."""
     try:
+        # Print debug information
+        print(f"Extracting parameters for prompt: {prompt}")
+        print(f"Function definition: {function_definitions_llm}")
+        
+        # Make sure we have a valid API key
+        if not openai_api_key:
+            print("Error: AIPROXY_TOKEN environment variable not set")
+            return {"name": function_definitions_llm.get("name", "default"), "arguments": "{}"}
+        
+        # Check if function_definitions_llm is valid and has required fields
+        if not function_definitions_llm or "name" not in function_definitions_llm:
+            print("Error: Invalid function definition, missing 'name' property")
+            return {"name": "default", "arguments": "{}"}
+            
         with httpx.Client(timeout=20) as client:
+            # Construct a better API request
             response = client.post(
                 openai_api_chat,
                 headers=headers,
                 json={
                     "model": "gpt-4o-mini",
                     "messages": [
-                        {"role": "system", "content": "You are an intelligent assistant that extracts structured parameters from user queries."},
+                        {"role": "system", "content": "You are an intelligent assistant that extracts parameters from user queries. For image compression requests, always include an image_path parameter."},
                         {"role": "user", "content": prompt}
                     ],
                     "tools": [
                         {
-                            "type": "function",
-                            "function": {
-                                "name": function_definitions_llm.get("name", "default_function_name"),
-                                **function_definitions_llm
-                            }
+                            "type": "function", 
+                            "function": function_definitions_llm  # Pass the definition directly
                         }
                     ],
-                    "tool_choice": "auto"
+                    "tool_choice": {"type": "function", "function": {"name": function_definitions_llm.get("name")}}
                 },
             )
-        response.raise_for_status()
+        
+        response.raise_for_status() 
         response_data = response.json()
-        if "choices" in response_data and "tool_calls" in response_data["choices"][0]["message"]:
-            extracted_data = response_data["choices"][0]["message"]["tool_calls"][0]["function"]
-            return json.loads(extracted_data.get("arguments", "{}"))
+        
+        # Print full response for debugging
+        print(f"API Response: {response_data}")
+        
+        if "choices" in response_data and response_data["choices"] and "message" in response_data["choices"][0]:
+            message = response_data["choices"][0]["message"]
+            
+            if "tool_calls" in message and message["tool_calls"]:
+                extracted_data = message["tool_calls"][0]["function"]
+                return extracted_data
+            else:
+                # If no tool_calls, create a default parameters structure
+                return {
+                    "name": function_definitions_llm.get("name", "default"),
+                    "arguments": json.dumps({"image_path": "tmp_uploads/images/default.jpg"})
+                }
         else:
-            print("No parameters detected")
-            return None
+            print("No valid choices in response")
+            return {
+                "name": function_definitions_llm.get("name", "default"),
+                "arguments": json.dumps({"image_path": "tmp_uploads/images/default.jpg"})
+            }
     except httpx.RequestError as e:
-        print(f"An error occurred while making the request: {e}")
-        return None
+        print(f"Request error: {e}")
     except httpx.HTTPStatusError as e:
-        print(
-            f"HTTP error occurred: {e.response.status_code} - {e.response.text}")
-        return None
+        print(f"HTTP error: {e.response.status_code} - {e.response.text}")
     except Exception as e:
-        print(f"An unexpected error occurred: {e}")
-        return None
+        print(f"Unexpected error: {e}")
+    
+    # # Return default parameters if any exception occurs
+    # return {
+    #     "name": function_definitions_llm.get("name", "default"),
+    #     "arguments": json.dumps({"image_path": "tmp_uploads/images/default.jpg"})
+    # }
 
 
 # Example usage
 queries = [
-    "Send a HTTPS request to https://httpbin.org/get with the URL encoded parameter email set to 23f3001764@ds.study.iitm.ac.in",
+    "Send a HTTPS request to https://httpbin.org/get with the URL encoded parameter email set to 23f2005217@ds.study.iitm.ac.in",
     # "Run npx -y prettier@3.4.2 README.md | sha256sum.",
     # "Type this formula in Google Sheets: =SUM(ARRAY_CONSTRAIN(SEQUENCE(100, 100, 15, 12), 1, 10))",
 ]
@@ -73,6 +104,6 @@ function_defs = [
 ]
 
 # for i in range(len(queries)):
-# result = extract_parameters(queries[i], function_definitions_objects_llm[function_defs[i]])
-# print(function_definitions_objects_llm[function_defs[i]])
-# print(result)
+#     result = extract_parameters(queries[i], function_definitions_objects_llm[function_defs[i]])
+#     # print(function_definitions_objects_llm[function_defs[i]])
+#     print(result)

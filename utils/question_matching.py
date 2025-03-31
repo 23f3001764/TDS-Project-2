@@ -4,6 +4,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
 def find_similar_question(input_question):
+    print("Input question:", input_question)
     questions_json = {}
 
     with open("data/questions.json", "r") as f:
@@ -23,9 +24,3 @@ def find_similar_question(input_question):
     most_similar_question_description = question_descriptions[most_similar_question_index]
 
     return (most_similar_question, most_similar_question_description)
-
-
-# Example usage
-if __name__ == "__main__":
-    question, description, files = find_similar_question("i want to create a HTTP request with uv?")
-    print(question, description, files)

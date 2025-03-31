@@ -21,8 +21,7 @@ app = Flask(__name__)
 # Load secret password from environment variables
 SECRET_PASSWORD = os.getenv("SECRET_PASSWORD")
 
-
-@app.route("/", methods=["POST"])
+@app.route("/api/", methods=["POST"])
 def process_file():
     """Handles incoming POST requests with a question and an optional file."""
     try:
@@ -44,22 +43,15 @@ def process_file():
 
         # Extract parameters for the function
         function_definitions = function_definitions_objects_llm.get(matched_function, {})
-        parameters = extract_parameters(str(question), function_definitions)
-
-        # Ensure parameters are iterable (avoiding 'NoneType' errors)
-        if parameters is None:
-            parameters = []
+        parameters = extract_parameters(str(question), function_definitions) or []
 
         # Fetch the corresponding solution function
         solution_function = functions_dict.get(
             matched_function, lambda *args: "No matching function found"
         )
 
-        # Call the solution function
-        if file:
-            answer = solution_function(file, *parameters)
-        else:
-            answer = solution_function(*parameters)
+        # Call the solution function with correct parameters
+        answer = solution_function(*([file] if file else []) + parameters)
 
         # Format the output for readability
         formatted_answer = textwrap.dedent(str(answer)).strip()
@@ -69,7 +61,6 @@ def process_file():
     except Exception as e:
         logging.error(f"Error processing request: {e}")
         return jsonify({"error": str(e)}), 500
-
 
 @app.route("/redeploy", methods=["GET"])
 def redeploy():
@@ -86,6 +77,5 @@ def redeploy():
         logging.error(f"Redeployment failed: {e}")
         return jsonify({"error": f"Redeployment failed: {str(e)}"}), 500
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.getenv("PORT", 10000)), debug=True)

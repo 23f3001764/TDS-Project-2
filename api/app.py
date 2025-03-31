@@ -26,6 +26,9 @@ def process_file():
     """Handles incoming POST requests with a question and an optional file."""
     try:
         question = request.form.get("question")
+        if not question:
+            data = request.get_json()  # Try getting JSON data
+            question = data.get("question") if data else None
         file = request.files.get("file") 
 
         if not question:
